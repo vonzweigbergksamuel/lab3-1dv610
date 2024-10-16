@@ -3,17 +3,10 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { CartContext } from "./cartContext";
 import { getProducts } from "@/controller/mainController";
+import { ProductProperties } from "@/types/product";
 import Image from "next/image";
 
-interface ProductProperties {
-  id?: string;
-  name?: string;
-  price?: number;
-  description?: string;
-  image?: string;
-}
-
-const DEFAULT_IMG = "/static/capybara_barista_transparent-min.png";
+export const DEFAULT_IMG = "/static/capybara_barista_transparent-min.png";
 
 export default function Cart() {
   const { cart } = useContext(CartContext);

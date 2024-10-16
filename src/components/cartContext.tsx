@@ -3,6 +3,8 @@
 import { createContext, useState, useEffect } from "react";
 import { ShoppingCart } from "@svz1234/shopping-cart";
 
+// Creates global context for the shopping cart
+
 interface CartContextType {
   cart: ShoppingCart | null;
 }

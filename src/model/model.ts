@@ -3,9 +3,14 @@ import Product from "./Product";
 import { ProductCategory } from "./ProductCategory";
 
 export default class Model {
-  #products: Product[];
+  #products: Product[] = [];
+  static #instance: Model | null = null;
 
   constructor() {
+    if (Model.#instance) {
+      return Model.#instance;
+    }
+    Model.#instance = this;
     this.#products = MockData.products;
   }
 
@@ -51,6 +56,6 @@ export default class Model {
   }
 
   getProductsInJSON(): object[] {
-    return this.#products.map((product) => product.toJSON());
+    return this.#products.map((product) => product.inJSON());
   }
 }

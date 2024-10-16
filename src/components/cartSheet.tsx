@@ -7,8 +7,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { Cart } from "@/components/cart";
-
 export default function CartSheet() {
   return (
     <Sheet>

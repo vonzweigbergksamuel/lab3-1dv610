@@ -67,7 +67,7 @@ export default class Product {
     this.#category = category;
   }
 
-  toJSON(): object {
+  inJSON(): object {
     return {
       id: this.#id,
       name: this.#name,
