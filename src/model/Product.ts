@@ -1,22 +1,22 @@
-import { randomUUID } from "crypto";
 import { ProductCategory } from "./ProductCategory";
 
 export default class Product {
-  #id: string;
+  #id: number;
   #name: string;
   #price: number;
   #description: string;
-  #image: File;
+  #image: string;
   #category: ProductCategory;
 
   constructor(
     name: string,
     price: number,
     description: string,
-    image: File,
+    image: string,
     category: ProductCategory
   ) {
-    this.#id = randomUUID();
+    // Each product has a unique Id, which is a number and 10 digits long.
+    this.#id = Number(Date.now().toString().slice(-10));
 
     this.#name = name;
     this.#price = price;
@@ -25,7 +25,7 @@ export default class Product {
     this.#category = category;
   }
 
-  get id(): string {
+  get id(): number {
     return this.#id;
   }
 
@@ -41,7 +41,7 @@ export default class Product {
     return this.#description;
   }
 
-  get image(): File {
+  get image(): string {
     return this.#image;
   }
 
@@ -61,11 +61,22 @@ export default class Product {
     this.#description = description;
   }
 
-  set image(image: File) {
+  set image(image: string) {
     this.#image = image;
   }
 
   set category(category: ProductCategory) {
     this.#category = category;
+  }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      price: this.#price,
+      description: this.#description,
+      image: this.#image,
+      category: this.#category,
+    };
   }
 }
