@@ -34,7 +34,7 @@ export default class Model {
   }
 
   updateProduct(
-    id: number,
+    id: string,
     name?: string,
     price?: number,
     description?: string,
@@ -51,7 +51,7 @@ export default class Model {
     }
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: string) {
     this.#products = this.#products.filter((product) => product.id !== id);
   }
 

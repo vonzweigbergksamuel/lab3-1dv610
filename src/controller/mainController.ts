@@ -15,21 +15,21 @@ export async function createProduct(
   description: string,
   image: string,
   category: ProductCategory
-) {
-  return model.createProduct(name, price, description, image, category);
+): Promise<void> {
+  model.createProduct(name, price, description, image, category);
 }
 
 export async function updateProduct(
-  id: number,
+  id: string,
   name?: string,
   price?: number,
   description?: string,
   image?: string,
   category?: ProductCategory
-) {
-  return model.updateProduct(id, name, price, description, image, category);
+): Promise<void> {
+  model.updateProduct(id, name, price, description, image, category);
 }
 
-export async function deleteProduct(id: number) {
-  return model.deleteProduct(id);
+export async function deleteProduct(id: string): Promise<void> {
+  model.deleteProduct(id);
 }

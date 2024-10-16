@@ -1,7 +1,8 @@
+import { randomUUID } from "crypto";
 import { ProductCategory } from "./ProductCategory";
 
 export default class Product {
-  #id: number;
+  #id: string;
   #name: string;
   #price: number;
   #description: string;
@@ -15,7 +16,7 @@ export default class Product {
     image: string,
     category: ProductCategory
   ) {
-    this.#id = Math.floor(Math.random() * 1000000);
+    this.#id = randomUUID();
     this.#name = name;
     this.#price = price;
     this.#description = description;
@@ -23,7 +24,7 @@ export default class Product {
     this.#category = category;
   }
 
-  get id(): number {
+  get id(): string {
     return this.#id;
   }
 

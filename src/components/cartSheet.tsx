@@ -33,7 +33,6 @@ export default function CartSheet() {
           <SheetTitle>Cart</SheetTitle>
           <SheetDescription>Your shopping cart</SheetDescription>
         </SheetHeader>
-        <Cart />
       </SheetContent>
     </Sheet>
   );

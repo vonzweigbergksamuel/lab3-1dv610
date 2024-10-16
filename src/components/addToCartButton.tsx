@@ -4,35 +4,43 @@ import { useCallback, useContext, useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { CartContext } from "./cartContext";
 
-export default function AddToCartButton({ productId }: { productId: number }) {
+export default function AddToCartButton({ productId }: { productId: string }) {
   const { cart } = useContext(CartContext);
   const [quantity, setQuantity] = useState(
     cart?.getProductQuantity(productId) || 0
   );
 
-  useEffect(() => {
-    setQuantity(cart?.getProductQuantity(productId) || 0);
+  const fetchProductQuantity = useCallback(() => {
+    if (cart) {
+      setQuantity(cart.getProductQuantity(productId));
+    } else {
+      setQuantity(0);
+    }
   }, [cart, productId]);
+
+  useEffect(() => {
+    fetchProductQuantity();
+  }, [fetchProductQuantity]);
 
   const addProductToCart = useCallback(() => {
     cart?.addProductToCart(productId);
-    setQuantity(cart?.getProductQuantity(productId) || 0);
-  }, [cart, productId]);
+    fetchProductQuantity();
+  }, [fetchProductQuantity, cart, productId]);
 
   const removeProductFromCart = useCallback(() => {
     cart?.removeProductFromCart(productId);
-    setQuantity(cart?.getProductQuantity(productId) || 0);
-  }, [cart, productId]);
+    fetchProductQuantity();
+  }, [fetchProductQuantity, cart, productId]);
 
   const incrementQuantity = useCallback(() => {
     cart?.incrementProductQuantity(productId);
-    setQuantity(cart?.getProductQuantity(productId) || 0);
-  }, [cart, productId]);
+    fetchProductQuantity();
+  }, [fetchProductQuantity, cart, productId]);
 
   const decrementQuantity = useCallback(() => {
     cart?.decrementProductQuantity(productId);
-    setQuantity(cart?.getProductQuantity(productId) || 0);
-  }, [cart, productId]);
+    fetchProductQuantity();
+  }, [fetchProductQuantity, cart, productId]);
 
   return (
     <div>

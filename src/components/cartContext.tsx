@@ -21,7 +21,7 @@ export function CartProvider({
   const [cart, setCart] = useState<ShoppingCart | null>(null);
 
   useEffect(() => {
-    setCart(new ShoppingCart("localStorage"));
+    setCart(new ShoppingCart("localStorage", "uuid"));
   }, []);
 
   return (
