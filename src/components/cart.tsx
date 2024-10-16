@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { CartContext } from "./cartContext";
 import { getProducts } from "@/controller/mainController";
 import Image from "next/image";
@@ -13,22 +13,36 @@ interface ProductProperties {
   image?: string;
 }
 
-const image = "/static/capybara_barista_transparent-min.png";
+const DEFAULT_IMG = "/static/capybara_barista_transparent-min.png";
 
 export default function Cart() {
   const { cart } = useContext(CartContext);
   const [products, setProducts] = useState<ProductProperties[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchProducts() {
+  const fetchProducts = useCallback(async () => {
+    try {
+      setIsLoading(true);
       const fetchedProducts = await getProducts();
       setProducts(fetchedProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    fetchProducts();
   }, []);
 
-  console.log(products);
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  if (!cart) {
+    return <div>Loading cart...</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading products...</div>;
+  }
 
   return (
     <ul>
@@ -40,7 +54,7 @@ export default function Cart() {
               <p>{product.price}</p>
               <p>{product.description}</p>
               <Image
-                src={image}
+                src={product.image || DEFAULT_IMG}
                 alt={product.name || ""}
                 width={100}
                 height={100}

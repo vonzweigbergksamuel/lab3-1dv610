@@ -15,9 +15,7 @@ export default class Product {
     image: string,
     category: ProductCategory
   ) {
-    // Each product has a unique Id, which is a number and 10 digits long.
-    this.#id = Number(Date.now().toString().slice(-10));
-
+    this.#id = Math.floor(Math.random() * 1000000);
     this.#name = name;
     this.#price = price;
     this.#description = description;
@@ -69,7 +67,7 @@ export default class Product {
     this.#category = category;
   }
 
-  toJSON() {
+  toJSON(): object {
     return {
       id: this.#id,
       name: this.#name,
