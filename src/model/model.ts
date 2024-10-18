@@ -34,7 +34,7 @@ export default class Model {
   }
 
   updateProduct(
-    id: string,
+    id: string | number,
     name?: string,
     price?: number,
     description?: string,
@@ -51,11 +51,7 @@ export default class Model {
     }
   }
 
-  deleteProduct(id: string) {
+  deleteProduct(id: string | number) {
     this.#products = this.#products.filter((product) => product.id !== id);
-  }
-
-  getProductsInJSON(): object[] {
-    return this.#products.map((product) => product.inJSON());
   }
 }

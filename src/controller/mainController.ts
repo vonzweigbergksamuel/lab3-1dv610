@@ -1,12 +1,25 @@
 "use server";
 
 import Model from "@/model/Model";
+import Product from "@/model/Product";
 import { ProductCategory } from "@/model/ProductCategory";
 
 const model = new Model();
 
-export async function getProducts(): Promise<object[]> {
-  return model.getProductsInJSON();
+export async function getAllProducts(): Promise<object[]> {
+  const products = model.products;
+  return products.map(toJSON);
+}
+
+export async function getProducts(
+  productIds: (string | number)[]
+): Promise<object[]> {
+  const products = model.products;
+  const selectedProducts = products.filter((product) => {
+    return productIds.includes(product.id);
+  });
+
+  return selectedProducts.map(toJSON);
 }
 
 export async function createProduct(
@@ -32,4 +45,8 @@ export async function updateProduct(
 
 export async function deleteProduct(id: string): Promise<void> {
   model.deleteProduct(id);
+}
+
+function toJSON(product: Product): object {
+  return product.inJSON();
 }

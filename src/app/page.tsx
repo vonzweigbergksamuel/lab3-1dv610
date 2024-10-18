@@ -1,11 +1,11 @@
-import Cart from "@/components/cart";
 import ProductGrid from "@/components/productGrid";
+import CartSheet from "@/components/cartSheet";
 
 export default function Home() {
   return (
-    <div>
-      {/* <Cart /> */}
+    <div className="flex ">
       <ProductGrid />
+      <CartSheet />
     </div>
   );
 }

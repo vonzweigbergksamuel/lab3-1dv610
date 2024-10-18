@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useContext, useEffect, useState } from "react";
-import { CartContext } from "./cartContext";
+import { CartContext } from "../lib/cartContext";
 import { getProducts } from "@/controller/mainController";
 import { ProductProperties } from "@/types/product";
 import Image from "next/image";
@@ -13,21 +13,29 @@ export default function Cart() {
   const [products, setProducts] = useState<ProductProperties[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const fetchProducts = useCallback(
+    async (productsInCart: { productId: string | number }[]) => {
+      try {
+        setIsLoading(true);
+        const productIds = productsInCart.map((item) => item.productId);
+        const fetchedProducts = await getProducts(productIds);
+
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    if (cart) {
+      const productsInCart = cart!.getCart();
+      fetchProducts(productsInCart);
+    }
+  }, [fetchProducts, cart]);
 
   if (!cart) {
     return <div>Loading cart...</div>;
