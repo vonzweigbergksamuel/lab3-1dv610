@@ -5,6 +5,7 @@ import { CartContext } from "../lib/cartContext";
 import { getProducts } from "@/controller/mainController";
 import { ProductProperties } from "@/types/product";
 import Image from "next/image";
+import { Separator } from "./ui/separator";
 
 export const DEFAULT_IMG = "/static/capybara_barista_transparent-min.png";
 
@@ -50,16 +51,23 @@ export default function Cart() {
       {products.map(
         (product) =>
           product && (
-            <li key={product.id}>
-              <h2>{product.name}</h2>
-              <p>{product.price}</p>
-              <p>{product.description}</p>
-              <Image
-                src={product.image || DEFAULT_IMG}
-                alt={product.name || ""}
-                width={100}
-                height={100}
-              />
+            <li key={product.id} className="py-4">
+              <div className="flex gap-8 justify-between pb-2">
+                <div>
+                  <h2 className="pb-1">{product.name}</h2>
+                  <p className="pb-1">{product.price} kr</p>
+                  <p className="text-lg font-bold">
+                    {cart.getProductQuantity(product.id!)} st
+                  </p>
+                </div>
+                <Image
+                  src={product.image || DEFAULT_IMG}
+                  alt={product.name || ""}
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <Separator />
             </li>
           )
       )}

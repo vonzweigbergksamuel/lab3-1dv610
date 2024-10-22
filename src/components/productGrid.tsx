@@ -1,19 +1,18 @@
 import { getAllProducts } from "@/controller/mainController";
 import { ProductProperties } from "@/types/product";
 import Image from "next/image";
-import { DEFAULT_IMG } from "./cart";
 import CartButtons from "./cartButtons";
+import { DEFAULT_IMG } from "./cart";
 
 export default async function ProductGrid() {
   const products: ProductProperties[] = await getAllProducts();
 
   return (
-    <div>
+    <div className=" flex gap-24 m-auto">
       {products.map((product) => (
-        <div key={product.id}>
+        <div key={product.id} className="flex-col">
           <h2>{product.name}</h2>
           <p>{product.price}</p>
-          <p>{product.description}</p>
           <Image
             src={product.image || DEFAULT_IMG}
             alt={product.name || ""}
