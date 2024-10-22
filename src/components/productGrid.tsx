@@ -8,7 +8,7 @@ export default async function ProductGrid() {
   const products: ProductProperties[] = await getAllProducts();
 
   return (
-    <div className=" flex gap-24 m-auto">
+    <div className="flex gap-24 justify-center mt-[25%]">
       {products.map((product) => (
         <div key={product.id} className="flex-col">
           <h2>{product.name}</h2>
