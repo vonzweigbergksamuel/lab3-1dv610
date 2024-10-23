@@ -13,8 +13,6 @@ export default function CartButtons({
   return (
     <div className="flex flex-col my-4 justify-center items-center">
       <div className="flex gap-2">
-        {/* <Button onClick={cart.addToCart}>Add to Cart</Button> */}
-        {/* <Button onClick={cart.removeFromCart}>Remove from Cart</Button> */}
         <Button
           variant={"ghost"}
           onClick={cart.decrementQuantity}
