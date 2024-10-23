@@ -15,6 +15,11 @@ export async function getProducts(
   productIds: (string | number)[]
 ): Promise<object[]> {
   const products = model.products;
+
+  if (products.length === 0) {
+    throw new Error("No products found");
+  }
+
   const selectedProducts = products.filter((product) => {
     return productIds.includes(product.id);
   });

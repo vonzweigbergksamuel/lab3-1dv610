@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lab 3 - 1dv610
 
-## Getting Started
+> This project uses the Shopping Cart module to create a visual shopping cart interface. The user can add products to the cart, increment and decrement/remove them from the cart. When added the cart is displayed when clicking a hamburger icon button that toggles a sheet from the right side. There you can se all the products in the cart and information about them such as name, price and quantity. The cart also persists when refreshing the page.
 
-First, run the development server:
+<br>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Requirements
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Visual elements to add/increment items to the cart
+- Visual elements to remove/decrement items from the cart
+- Visual elements to view products in the cart
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<br>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Testing
 
-## Learn More
+| Test                                                                   | Expected                        | Actual               | Pass/Fail |
+| ---------------------------------------------------------------------- | ------------------------------- | -------------------- | --------- |
+| Clicking the add button should increment the item count in the Cart    | Item count should increase by 1 | Count increases by 1 | Pass      |
+| Clicking the remove button should decrement the item count in the Cart | Item count should decrease by 1 | Count decreases by 1 | Pass      |
+| Clicking the hamburger icon button should display the cart             | Cart should be displayed        | Cart is displayed    | Pass      |
+| Refreshing the page should not clear the cart                          | Cart should persist             | Cart persists        | Pass      |
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<br>
