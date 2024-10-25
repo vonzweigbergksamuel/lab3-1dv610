@@ -2,16 +2,22 @@ import MockData from "./MockData";
 import Product from "./Product";
 import { ProductCategory } from "./ProductCategory";
 
+declare global {
+  // eslint-disable-next-line no-var
+  var modelInstance: Model | undefined;
+}
+
 export default class Model {
   #products: Product[] = [];
-  static #instance: Model | null = null;
 
   constructor() {
-    if (Model.#instance) {
-      return Model.#instance;
+    if (global.modelInstance) {
+      return global.modelInstance;
     }
-    Model.#instance = this;
+
     this.#products = MockData.products;
+    global.modelInstance = this;
+    return this;
   }
 
   get products(): Product[] {

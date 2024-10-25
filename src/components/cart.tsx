@@ -14,27 +14,38 @@ export default function Cart() {
   const [products, setProducts] = useState<ProductProperties[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchProducts = useCallback(
-    async (productsInCart: { productId: string | number }[]) => {
-      try {
-        setIsLoading(true);
-        const productIds = productsInCart.map((item) => item.productId);
-        const fetchedProducts = await getProducts(productIds);
+  const fetchProducts = useCallback(async () => {
+    if (!cart) {
+      setIsLoading(false);
+      return;
+    }
 
-        setProducts(fetchedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setIsLoading(false);
+    const cartItems = cart.getCart();
+
+    if (cartItems.length === 0) {
+      setProducts([]);
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const productIds = cartItems.map((item) => item.productId);
+      const fetchedProducts = await getProducts(productIds);
+
+      if (Array.isArray(fetchedProducts) && fetchedProducts.length > 0) {
+        setProducts(fetchedProducts as ProductProperties[]);
       }
-    },
-    []
-  );
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setProducts([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [cart]);
 
   useEffect(() => {
     if (cart) {
-      const productsInCart = cart!.getCart();
-      fetchProducts(productsInCart);
+      fetchProducts();
     }
   }, [fetchProducts, cart]);
 
@@ -44,6 +55,10 @@ export default function Cart() {
 
   if (isLoading) {
     return <div>Loading products...</div>;
+  }
+
+  if (products.length === 0) {
+    return <div>Your cart is empty</div>;
   }
 
   return (

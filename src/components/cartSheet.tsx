@@ -28,7 +28,7 @@ export default function CartSheet() {
           <SheetDescription>Your shopping cart</SheetDescription>
         </SheetHeader>
         <div className="mt-2">
-          <Cart />
+          <Cart key={Date.now()} />
         </div>
       </SheetContent>
     </Sheet>

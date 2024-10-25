@@ -21,7 +21,13 @@ export async function getProducts(
   }
 
   const selectedProducts = products.filter((product) => {
-    return productIds.includes(product.id);
+    const matchingId = productIds.some((id) => {
+      const idString = String(id);
+      const baseId = idString.split("-")[0];
+      return product.id === baseId;
+    });
+
+    return matchingId;
   });
 
   return selectedProducts.map(toJSON);

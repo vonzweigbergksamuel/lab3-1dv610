@@ -14,9 +14,10 @@ export default class Product {
     price: number,
     description: string,
     image: string,
-    category: ProductCategory
+    category: ProductCategory,
+    id?: string
   ) {
-    this.#id = randomUUID().slice(0, 8);
+    this.#id = id || randomUUID().slice(0, 8);
     this.#name = name;
     this.#price = price;
     this.#description = description;

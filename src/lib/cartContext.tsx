@@ -18,8 +18,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<ShoppingCart | null>(null);
 
   useEffect(() => {
-    const newCart = new ShoppingCart();
-    setCart(newCart);
+    if (window !== undefined) {
+      const newCart = new ShoppingCart();
+      setCart(newCart);
+    }
   }, []);
 
   return (
